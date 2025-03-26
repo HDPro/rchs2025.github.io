@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Đường Kính Tương Đương Của Sợi Dây Gộp Lại</title>
+    <script>
+        window.onload = function () {
+            // Lắng nghe sự kiện submit của form
+            document.getElementById("form-tinh").addEventListener("submit", function(event) {
+                event.preventDefault(); // Ngừng việc submit form để tránh reload trang
+                tinhDuongKinh(); // Gọi hàm tính toán
+            });
+        };
+
+        // Hàm tính đường kính tương đương
+        function tinhDuongKinh() {
+            // Lấy dữ liệu từ form
+            var so_soi = parseInt(document.getElementById("so_soi").value);
+            var duong_kinh = parseFloat(document.getElementById("duong_kinh").value);
+            var so_soi_moi = parseInt(document.getElementById("so_soi_moi").value);
+
+            // Kiểm tra tính hợp lệ của dữ liệu
+            if (so_soi <= 0 || duong_kinh <= 0 || so_soi_moi <= 0) {
+                alert("Vui lòng nhập các giá trị hợp lệ (lớn hơn 0).");
+                return;
+            }
+
+            // Tính bán kính của mỗi sợi dây
+            var ban_kinh = duong_kinh / 2;
+
+            // Tính diện tích của một sợi dây
+            var dien_tich_moi_soi = Math.PI * Math.pow(ban_kinh, 2);
+
+            // Tính diện tích tổng cộng của tất cả các sợi
+            var dien_tich_tong = so_soi * dien_tich_moi_soi;
+
+            // Tính diện tích của sợi dây gộp lại với số sợi mới
+            var dien_tich_moi = dien_tich_tong / so_soi_moi;
+
+            // Tính bán kính của sợi dây gộp lại
+            var ban_kinh_moi = Math.sqrt(dien_tich_moi / Math.PI);
+
+            // Tính đường kính của sợi dây gộp lại
+            var duong_kinh_moi = 2 * ban_kinh_moi;
+
+            // Hiển thị kết quả
+            document.getElementById("ket_qua").innerHTML = "Đường kính của sợi dây tương đương khi gộp lại là: " + duong_kinh_moi.toFixed(2) + " mm";
+        }
+    </script>
+</head>
+<body>
+
+<h2>Tính Đường Kính Tương Đương Của Sợi Dây Gộp Lại</h2>
+
+<!-- Đảm bảo form không reload trang khi submit -->
+<form id="form-tinh">
+    <label for="so_soi">Số sợi dây ban đầu:</label>
+    <input type="number" id="so_soi" name="so_soi" required><br><br>
+    
+    <label for="duong_kinh">Đường kính mỗi sợi (mm):</label>
+    <input type="number" id="duong_kinh" name="duong_kinh" step="0.01" required><br><br>
+
+    <label for="so_soi_moi">Số sợi sau khi gộp lại:</label>
+    <input type="number" id="so_soi_moi" name="so_soi_moi" required><br><br>
+
+    <input type="submit" value="Tính">
+</form>
+
+<h3 id="ket_qua"></h3>
+
+</body>
+</html>
